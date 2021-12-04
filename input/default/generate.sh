@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# This generates the same codeplug as generate.py
-# using bash scripting. Linux or macOS only.
+# This script generates the same codeplug as generate.py
+# by running dzcb as a command line program
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 OUTPUT=${OUTPUT:-$DIR/../../OUTPUT}
@@ -9,16 +9,10 @@ python -m dzcb \
     --pnwdigital \
     --seattledmr \
     --default-k7abd \
-    --k7abd $DIR/k7abd \
-    --repeaterbook-proximity-csv "$DIR/prox.csv" \
-    --repeaterbook-state washington oregon \
-    --repeaterbook-name-format '{Callsign} {Nearest City} {Landmark}' \
-    --scanlists-json "$DIR/scanlists.json" \
-    --exclude "$DIR/exclude.csv" \
-    --order "$DIR/order.csv" \
-    --replacements "$DIR/replacements.csv" \
-    --anytone \
-    --dmrconfig "$DIR/example-d878uv.conf" \
-    --farnsworth-template-json "$DIR/example-md-uv380.json" \
-    --gb3gf \
--- "$OUTPUT/$(basename "$DIR")"
+    --farnsworth-template-json $DIR/md380-uhf.json \
+                               $DIR/md380-vhf.json \
+                               $DIR/md390-uhf.json \
+                               $DIR/md390-vhf.json \
+    --scanlists-json $DIR/scanlists.json \
+    --exclude $DIR/exclude.csv \
+-- $OUTPUT/$(dirname "$DIR")
